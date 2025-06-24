@@ -1,0 +1,6 @@
+{
+  "name": "DR AI",
+  "description": "Chat with Gemini and generate images. Supports multiple themes and custom instructions.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

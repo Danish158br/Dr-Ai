@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DR AI - Fulfill Your Dream with Powerful AI</title>
+  <meta name="robots" content="index, follow" />
+  <meta name="description" content="DR Ai is the most powerful AI assistant that helps you fulfill your dreams. Generate text, images, APIs, and get premium results in seconds." />
+  <meta name="keywords" content="DR Ai, AI Assistant, Image Generator, Prompt Creator, AI Chat, Premium AI, OpenAI, Gemini, HuggingFace, Web App AI" />
+  <meta name="author" content="DR Ai Team" />
+
+  <meta property="og:title" content="DR Ai - Fulfill Your Dream with Powerful AI" />
+  <meta property="og:description" content="Ask anything. Get everything. From premium text to extraordinary images." />
+  <meta property="og:image" content="favicon.ico" />
+  <meta property="og:url" content="https://yourdomain.com" /> <!-- Replace with your actual domain -->
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:title" content="DR Ai - Your Dream AI Assistant" />
+  <meta name="twitter:description" content="Build anything. Create anything. From images to full apps with DR Ai." />
+  <meta name="twitter:image" content="favicon.ico" /> <!-- Replace with URL to your image -->
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="stylesheet" href="index.css">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#7f7fd5"> <!-- Example: Glassmorphism primary color -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="DR AI">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png"> <!-- Create this icon path -->
+
+
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/genai": "https://esm.sh/@google/genai@^0.8.0",
+        "marked": "https://esm.sh/marked@^15.0.8"
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DR Ai",
+    "applicationCategory": "AI Assistant",
+    "operatingSystem": "All",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "1323"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+  <div id="app-container">
+    <aside id="sidebar">
+      <div class="sidebar-logo-container">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" id="app-logo">
+          <text x="5" y="29" class="dr-logo-text">DR</text>
+          <text x="47" y="29" class="ai-logo-text">AI</text>
+        </svg>
+      </div>
+      <button id="new-chat-button" class="sidebar-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+          <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+        </svg>
+        New Chat
+      </button>
+      <nav id="chat-history-list" aria-label="Chat History"></nav>
+      <div id="sidebar-footer">
+        <button id="api-settings-button" class="sidebar-button" aria-label="Open API & Technical Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M10 3.75a2 2 0 100 4 2 2 0 000-4zM6.25 4.5a.75.75 0 000 1.5h-.5a.75.75 0 000 1.5h.5a.75.75 0 000 1.5h-.5a.75.75 0 000 1.5h.5a2.75 2.75 0 002.75-2.75v-.5A2.75 2.75 0 006.25 4.5h0zM13.75 4.5a.75.75 0 000 1.5h.5a.75.75 0 000 1.5h-.5a.75.75 0 000 1.5h.5a.75.75 0 000 1.5h-.5A2.75 2.75 0 0011 9.25v-.5A2.75 2.75 0 0013.75 4.5h0zM10 12.25a2 2 0 100 4 2 2 0 000-4zM6.25 13a.75.75 0 000 1.5h-.5a.75.75 0 000 1.5h.5a.75.75 0 000 1.5h-.5a.75.75 0 000 1.5h.5a2.75 2.75 0 002.75-2.75v-.5A2.75 2.75 0 006.25 13h0zM13.75 13a.75.75 0 000 1.5h.5a.75.75 0 000 1.5h-.5a.75.75 0 000 1.5h.5a.75.75 0 000 1.5h-.5a2.75 2.75 0 00-2.75 2.75v-.5A2.75 2.75 0 0013.75 13h0z"/>
+          </svg>
+          <span>API Settings</span>
+        </button>
+        <button id="capabilities-button" class="sidebar-button" aria-label="Open DR AI Capabilities">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path fill-rule="evenodd" d="M9.303 2.763a1.504 1.504 0 011.394 0l6.092 3.518a1.504 1.504 0 01.752 1.303v7.036a1.504 1.504 0 01-.752 1.303l-6.092 3.518a1.504 1.504 0 01-1.394 0l-6.092-3.518A1.504 1.504 0 012 14.656V7.62a1.504 1.504 0 01.752-1.303L8.844 2.763a.5.5 0 01.459 0zM10 4.288L4.498 7.502v5.197L10 15.912l5.502-3.213V7.502L10 4.288zm0 1.091a.75.75 0 01.626.372l1.626 2.71a.75.75 0 01-.626 1.128H8.374a.75.75 0 01-.626-1.128l1.626-2.71A.75.75 0 0110 5.38zm0 4.092a.75.75 0 01.626.372l1.626 2.71a.75.75 0 01-.626 1.128H8.374a.75.75 0 01-.626-1.128l1.626-2.71A.75.75 0 0110 9.471z" clip-rule="evenodd" />
+          </svg>
+          <span>Capabilities</span>
+        </button>
+        <button id="settings-button" class="sidebar-button" aria-label="Open Settings">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.566.379-1.566 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.566 2.6 1.566 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01-.947-2.287c1.566-.379 1.566-2.6 0-2.978a1.532 1.532 0 01.947-2.287c.836-1.372-.734-2.942-2.106-2.106A1.532 1.532 0 0111.49 3.17zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+          </svg>
+          <span>Settings</span>
+        </button>
+        <button id="about-button" class="sidebar-button" aria-label="Open About">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+          </svg>
+            <span>About</span>
+        </button>
+        <button id="terms-button" class="sidebar-button" aria-label="Open Terms & Conditions">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+              <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+              <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+            </svg>
+            <span>Terms</span>
+        </button>
+        <div class="sidebar-copyright">
+          &copy; 2025 DR AI
+        </div>
+      </div>
+    </aside>
+    <main id="chat-area">
+      <header id="chat-header">
+        <button id="menu-button" aria-label="Toggle sidebar" aria-expanded="false" class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="24" height="24">
+            <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="chat-title-container">
+            <h1 id="app-main-title">
+              <span class="app-title-d">D</span><span class="app-title-r">R</span> <span class="app-title-ai">AI</span>
+            </h1>
+        </div>
+        <button id="clear-conversation-button" aria-label="Clear current conversation" class="icon-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </header>
+      <div id="output-container" role="log" aria-live="polite">
+      </div>
+      <div id="controls">
+        <button id="search-toggle-button" class="icon-button search-toggle-button" aria-pressed="false" aria-label="Toggle Google Search Mode">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <button id="image-toggle-button" class="icon-button image-toggle-button" aria-pressed="false" aria-label="Toggle Image Generation Mode">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path fill-rule="evenodd" d="M1 5.25A2.25 2.25 0 013.25 3h13.5A2.25 2.25 0 0119 5.25v9.5A2.25 2.25 0 0116.75 17H3.25A2.25 2.25 0 011 14.75v-9.5zm1.5 0v9.5c0 .414.336.75.75.75h13.5a.75.75 0 00.75-.75v-9.5a.75.75 0 00-.75-.75H3.25a.75.75 0 00-.75.75zM8 8a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm5.224 2.22a.75.75 0 001.06 0l1.25-1.25a.75.75 0 10-1.06-1.06L14 8.44l-.724-.724a.75.75 0 00-1.06 0L9.99 10a.75.75 0 000 1.06l3.234 3.235a.75.75 0 001.06-1.06L13.224 10.22z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <textarea id="prompt-input" rows="1" placeholder="Type your message to DR AI..."></textarea>
+        <button id="send-button" aria-label="Send message" class="icon-button primary">
+        </button>
+        <button id="stop-generation-button" aria-label="Stop generation" class="icon-button danger hidden">
+           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M5 3.75A1.25 1.25 0 016.25 2.5h7.5A1.25 1.25 0 0115 3.75v12.5A1.25 1.25 0 0113.75 17.5h-7.5A1.25 1.25 0 015 16.25V3.75zM6.5 16.25V3.75h7V16.25h-7z" />
+          </svg>
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <div id="loading-overlay" class="loading-overlay hidden" aria-hidden="true" role="alert" aria-live="assertive">
+    <div class="loading-spinner-container">
+      <svg class="spinner" viewBox="0 0 50 50">
+        <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="5"></circle>
+      </svg>
+      <p>Processing...</p>
+    </div>
+  </div>
+
+  <div id="settings-modal-overlay" class="modal-overlay hidden">
+    <div id="settings-modal" class="modal-content" role="dialog" aria-labelledby="settings-modal-title" aria-modal="true">
+      <header class="modal-header">
+        <h2 id="settings-modal-title">Settings</h2>
+        <button id="close-settings-modal-button" aria-label="Close settings" class="icon-button modal-close-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+          </svg>
+        </button>
+      </header>
+      <div class="modal-body">
+        <div class="settings-section">
+          <h3>Core Memory (Supplemental)</h3>
+          <p class="settings-description">Add supplemental facts DR AI should remember. This helps DR AI tailor its responses to your specific needs and builds upon its core knowledge.</p>
+          <textarea id="core-memory-input" rows="4" placeholder="e.g., My specific project is about X. My favorite color is blue."></textarea>
+        </div>
+        <hr class="settings-divider">
+        <div class="settings-section">
+          <div class="settings-label-container">
+            <h3>Custom Instructions (Supplemental)</h3>
+            <button id="enhance-instructions-button" class="icon-button enhance-button" title="Enhance Instructions with DR AI (uses Primary Pathway)">💡</button>
+          </div>
+          <p class="settings-description">Provide additional instructions to refine DR AI's personality or style. These work with its core operational instructions and any supplemental memory you provide, allowing DR AI to better assist you and achieve the best results.</p>
+          <textarea id="custom-instructions-input" rows="5" placeholder="e.g., Explain concepts as if I'm a beginner. Use more emojis."></textarea>
+        </div>
+        <hr class="settings-divider">
+        <div class="settings-section">
+            <button id="save-settings-button" class="modal-button primary">Save Settings</button>
+            <span id="save-settings-feedback" class="feedback-message"></span>
+        </div>
+        <hr class="settings-divider">
+        <div class="settings-section">
+          <h3>Appearance</h3>
+           <p class="settings-description">Choose how the application looks.</p>
+          <div id="theme-selector" class="theme-options">
+            <button class="theme-button" data-theme="light" aria-pressed="false">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.06l1.06-1.06zM5.404 15.657a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM16.75 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 10a.75.75 0 01-.75.75H2a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM4.343 4.343a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 00-1.061 1.06l1.06 1.06z" /></svg>
+              Clarity
+            </button>
+            <button class="theme-button" data-theme="dark" aria-pressed="false">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path fill-rule="evenodd" d="M7.455 2.104a.75.75 0 01.106.012A8.998 8.998 0 0117.5 10.25a8.999 8.999 0 01-10.385 8.358.75.75 0 00-.413-.997 7.499 7.499 0 01-8.248-9.037.75.75 0 00.106-.39A8.998 8.998 0 015.93 2.62.75.75 0 017.455 2.104z" clip-rule="evenodd" /></svg>
+              Midnight
+            </button>
+            <button class="theme-button" data-theme="glassmorphism" aria-pressed="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M10 3.5A1.5 1.5 0 0111.5 5v1.642a4.002 4.002 0 01-3 0V5A1.5 1.5 0 0110 3.5zM7.066 7.468a4.002 4.002 0 005.868 0L14 8.25V10A1.5 1.5 0 0112.5 11.5h-1v1.642a4.002 4.002 0 01-3 0V11.5h-1A1.5 1.5 0 016 10V8.25l1.066-.782zM6.5 15A1.5 1.5 0 015 13.5v-1.642a4.002 4.002 0 013 0V13.5A1.5 1.5 0 016.5 15z"/></svg>
+              Aether
+            </button>
+            <button class="theme-button" data-theme="futuristic" aria-pressed="false">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="18" height="18"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v2h2a1 1 0 011 1v7a1 1 0 01-1 1h-2v2a2 2 0 01-2 2H7a2 2 0 01-2-2v-2H3a1 1 0 01-1-1V7a1 1 0 011-1h2V4zm2-1a1 1 0 00-1 1v2H5V6h1V5zm1 11a1 1 0 001-1v-2h2v2a1 1 0 001 1h2v-1h-1v-1H8v1H7v1h1zM8 8H6v5h2V8zm6 0h-2v5h2V8zM8 4h4v1H8V4z"/></svg>
+              Nova
+            </button>
+          </div>
+        </div>
+        <hr class="settings-divider">
+        <div class="settings-section">
+          <h3>Data Management</h3>
+          <p class="settings-description">Reset all your chats, supplemental memory, and custom instructions. This action cannot be undone.</p>
+          <button id="reset-all-data-button" class="modal-button danger">Reset All Application Data</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="api-settings-modal-overlay" class="modal-overlay hidden">
+    <div id="api-settings-modal" class="modal-content" role="dialog" aria-labelledby="api-settings-modal-title" aria-modal="true">
+      <header class="modal-header">
+        <h2 id="api-settings-modal-title">API & Technical Settings</h2>
+        <button id="close-api-settings-modal-button" aria-label="Close API settings" class="icon-button modal-close-button">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+          </svg>
+        </button>
+      </header>
+      <div class="modal-body">
+        <div class="settings-section" id="active-engine-selector-section">
+          <h3>Active DR AI Engine Pathway</h3>
+          <p class="settings-description">Choose the primary internal pathway for DR AI responses. Ensure the selected pathway is configured with at least one valid API key/endpoint below. Image generation, Google Search, and the 'Enhance Instructions' feature are available when DR AI's primary internal pathway is active.</p>
+          <select id="active-ai-engine-selector" class="modal-input">
+            <option value="gemini">DR AI (Primary Pathway)</option>
+            <option value="openrouter">OpenRouter AI</option>
+            <option value="huggingface">Hugging Face</option>
+            <option value="rapidapi">RapidAPI</option>
+          </select>
+        </div>
+        <hr class="settings-divider">
+
+        <div class="settings-section" id="gemini-api-settings-section">
+          <div id="gemini-pathway-status">
+            <!-- Status text like "DR AI Primary Pathway: Active & Ready" will be set by JS -->
+          </div>
+           <p class="settings-disclaimer">The API Key for the DR AI Primary Pathway is managed via a system environment variable (<code>process.env.API_KEY</code>) and is not set within this application. This pathway must be configured at the system level for its features to be available.</p>
+        </div>
+        <hr class="settings-divider">
+
+        <div class="settings-section" id="openrouter-api-settings-section">
+          <h3 class="settings-section-header">OpenRouter AI Configurations</h3>
+          <p class="settings-description">Manage multiple OpenRouter AI configurations. Each configuration requires an API key and a Model String (e.g., <code>openai/gpt-3.5-turbo</code>). You can optionally name each configuration. If "OpenRouter AI" is the active pathway, the first valid configuration from this list will be used by DR AI.</p>
+          <div class="api-config-input-group">
+            <input type="text" id="openrouterai-name-input" class="modal-input" placeholder="Configuration Name (Optional)">
+            <input type="password" id="openrouterai-key-input" class="modal-input" placeholder="OpenRouter AI Key">
+            <input type="text" id="openrouterai-model-input" class="modal-input" placeholder="Model String (e.g., openai/gpt-3.5-turbo)">
+            <button id="add-openrouterai-config-button" class="modal-button add-config-button">Add OpenRouter AI Config</button>
+          </div>
+          <div id="openrouterai-configs-list" class="api-config-list">
+            <!-- OpenRouter AI configurations will be listed here by JS -->
+          </div>
+        </div>
+        <hr class="settings-divider">
+
+        <div class="settings-section" id="huggingface-api-settings-section">
+          <h3 class="settings-section-header">Hugging Face Configurations</h3>
+          <p class="settings-description">Add and manage multiple Hugging Face configurations. Each requires an API Key (Bearer Token) and a Model Endpoint URL. If "Hugging Face" is the active pathway, the first valid configuration from this list will be used by DR AI.</p>
+          <div class="api-config-input-group">
+            <input type="text" id="huggingface-name-input" class="modal-input" placeholder="Configuration Name (Optional)">
+            <input type="password" id="huggingface-key-input" class="modal-input" placeholder="Hugging Face API Key (Bearer Token)">
+            <input type="text" id="huggingface-endpoint-input" class="modal-input" placeholder="Hugging Face Model Endpoint URL">
+            <button id="add-huggingface-config-button" class="modal-button add-config-button">Add HF Config</button>
+          </div>
+          <div id="huggingface-configs-list" class="api-config-list">
+            <!-- Hugging Face configs will be listed here by JS -->
+          </div>
+        </div>
+        <hr class="settings-divider">
+
+        <div class="settings-section" id="rapidapi-api-settings-section">
+          <h3 class="settings-section-header">RapidAPI Configurations</h3>
+          <p class="settings-description">Manage multiple RapidAPI configurations. Each configuration requires a key, host, and endpoint. You can optionally name each configuration. If "RapidAPI" is the active pathway, the first valid configuration from this list will be used by DR AI.</p>
+          <div class="api-config-input-group">
+            <input type="text" id="rapidapi-name-input" class="modal-input" placeholder="Configuration Name (Optional)">
+            <input type="password" id="rapidapi-key-input" class="modal-input" placeholder="RapidAPI Key">
+            <input type="text" id="rapidapi-host-input" class="modal-input" placeholder="RapidAPI Host (e.g., example.p.rapidapi.com)">
+            <input type="text" id="rapidapi-endpoint-input" class="modal-input" placeholder="RapidAPI Endpoint Path (e.g., /v1/translate)">
+            <button id="add-rapidapi-config-button" class="modal-button add-config-button">Add RapidAPI Config</button>
+          </div>
+          <div id="rapidapi-configs-list" class="api-config-list">
+            <!-- RapidAPI configurations will be listed here by JS -->
+          </div>
+        </div>
+        <hr class="settings-divider">
+
+        <div class="settings-section">
+            <button id="save-api-settings-button" class="modal-button primary">Confirm API Settings</button>
+            <span id="save-api-settings-feedback" class="feedback-message"></span>
+        </div>
+        <hr class="settings-divider">
+        <div class="settings-section">
+          <p class="settings-disclaimer"><strong>Note:</strong> API keys and configurations for RapidAPI, Hugging Face, and OpenRouter AI are stored locally in your browser. Ensure your environment is secure. These settings may allow DR AI to make external API calls on your behalf using these keys.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="about-modal-overlay" class="modal-overlay hidden">
+    <div id="about-modal" class="modal-content" role="dialog" aria-labelledby="about-modal-title" aria-modal="true">
+      <header class="modal-header">
+        <h2 id="about-modal-title">About DR AI</h2>
+        <button id="close-about-modal-button" aria-label="Close about" class="icon-button modal-close-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+            </svg>
+        </button>
+      </header>
+      <div class="modal-body">
+        <p><strong>DR AI</strong> is your advanced multimodal AI assistant, designed to help you fulfill your dreams. It provides a powerful core experience and allows you to extend its capabilities by integrating your own API configurations for various services.</p>
+        <h3>Features:</h3>
+        <ul>
+            <li>Engage in intelligent text-based conversations using DR AI's primary capabilities or your integrated services.</li>
+            <li>Generate creative images from your descriptions (via DR AI's primary internal pathway).</li>
+            <li>Utilize Google Search for up-to-date information (via DR AI's primary internal pathway).</li>
+            <li>Customize DR AI's memory and instructions for tailored interactions. Use the 💡 button to enhance them!</li>
+            <li>Connect to your own accounts with OpenRouter AI, Hugging Face, and RapidAPI to leverage a vast array of models and services directly within DR AI.</li>
+            <li>Choose from multiple themes for your preferred visual experience.</li>
+            <li>Manage API keys/configurations for all supported pathways securely in your local browser.</li>
+        </ul>
+        <p>DR AI empowers you to bring your ideas to life by providing a versatile platform for AI interaction. This application is designed to showcase the capabilities of generative AI in a user-friendly interface. We continuously strive to enhance its performance and features.</p>
+        <p>&copy; 2025 DR AI. All rights reserved.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="terms-modal-overlay" class="modal-overlay hidden">
+    <div id="terms-modal" class="modal-content" role="dialog" aria-labelledby="terms-modal-title" aria-modal="true">
+      <header class="modal-header">
+        <h2 id="terms-modal-title">Terms & Conditions</h2>
+        <button id="close-terms-modal-button" aria-label="Close terms" class="icon-button modal-close-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+            </svg>
+        </button>
+      </header>
+      <div class="modal-body">
+        <p>Welcome to DR AI. By using this application, you agree to the following terms:</p>
+        <ol>
+            <li><strong>Acceptable Use:</strong> You agree not to use DR AI for any unlawful purpose or in any way that could harm DR AI, or any third-party service provider. Do not generate content that is abusive, harmful, or violates ethical AI guidelines.</li>
+            <li><strong>Generated Content:</strong> Content generated by DR AI is for informational and creative purposes. While DR AI strives for accuracy, it may produce incorrect or incomplete information. You are responsible for verifying any critical information.</li>
+            <li><strong>Data & Privacy:</strong> Your chat history, supplemental core memory, and custom instructions are stored locally in your browser. API keys and configurations for third-party services (OpenRouter AI, Hugging Face, RapidAPI) entered in the "API & Technical Settings" are also stored locally. DR AI does not transmit this data to any server beyond what is necessary for API calls to the respective services if API keys/configurations are provided and those pathways are active. The API key for DR AI's primary pathway is system-configured and not managed by the user within the app. Resetting application data will clear relevant local storage.</li>
+            <li><strong>API Keys:</strong> The API Key for DR AI's primary pathway is provided via a system environment variable. If you use your own API keys/configurations for other services like OpenRouter AI, Hugging Face, or RapidAPI, you are responsible for their security and usage in accordance with the respective service's terms. Storing API keys in the browser has inherent security risks; ensure your environment is secure.</li>
+            <li><strong>Disclaimer:</strong> DR AI is provided "as-is" without any warranties. We are not liable for any damages arising from your use of this application.</li>
+            <li><strong>Changes to Terms:</strong> We may update these terms occasionally. Continued use of the app after changes constitutes acceptance.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div id="capabilities-modal-overlay" class="modal-overlay hidden">
+    <div id="capabilities-modal" class="modal-content" role="dialog" aria-labelledby="capabilities-modal-title" aria-modal="true">
+      <header class="modal-header">
+        <h2 id="capabilities-modal-title">DR AI Capabilities</h2>
+        <button id="close-capabilities-modal-button" aria-label="Close capabilities" class="icon-button modal-close-button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+            </svg>
+        </button>
+      </header>
+      <div class="modal-body">
+        <p>DR AI is a versatile multimodal assistant. Its core capabilities depend on the selected internal AI pathway:</p>
+
+        <h3>DR AI (Primary Pathway):</h3>
+        <ul>
+            <li>Advanced text generation, comprehension, summarization, drafting, and creative writing.</li>
+            <li>High-quality image generation from textual descriptions.</li>
+            <li>Information retrieval with Google Search grounding.</li>
+            <li>Full support for supplemental core memory and custom instructions (including AI-powered enhancement via 💡).</li>
+        </ul>
+
+        <h3>OpenRouter AI Pathway:</h3>
+        <ul>
+            <li>Access to a wide variety of models available through OpenRouter.
+            <li>Text generation and chat, supporting conversational history.</li>
+            <li>Streaming responses for interactive chat.</li>
+        </ul>
+
+        <h3>Hugging Face Pathway:</h3>
+        <ul>
+            <li>Direct interaction with user-configured Hugging Face Inference Endpoints.</li>
+            <li>Text generation (based on the configured model's capabilities).</li>
+            <li>Note: This integration is generic; streaming and conversational history in the API call depend on the specific endpoint and are not assumed by default.</li>
+        </ul>
+
+        <h3>RapidAPI Pathway:</h3>
+        <ul>
+            <li>Connection to user-configured APIs available on the RapidAPI marketplace.</li>
+            <li>Functionality depends entirely on the specific RapidAPI endpoint configured by the user.</li>
+            <li>Note: This integration is generic and assumes the API is for text-based input/output. Streaming and conversational history are not assumed.</li>
+        </ul>
+
+        <h3>General Features:</h3>
+        <ul>
+            <li>Customizable themes for visual preference.</li>
+            <li>Local storage of chat history and settings.</li>
+            <li>Management of API keys/configurations for all supported pathways.</li>
+        </ul>
+         <p>DR AI aims to be helpful and resourceful. If you're unsure if it can do something, just ask!</p>
+         <hr class="settings-divider">
+         <p><strong>Note on Resetting Data:</strong> Resetting application data will clear all your chat history, supplemental core memory, custom instructions, and any saved API keys/configurations for third-party services. DR AI will revert to its default operational state.</p>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="index.js"></script>
+  <!--
+    CRITICAL: The file 'index.tsx' MUST be transpiled (compiled) to 'index.js'.
+    Browsers cannot run .tsx files directly. Use a build tool like tsc, Vite, Parcel, or Webpack.
+    Ensure 'index.js' is present in the same directory and is the compiled output of 'index.tsx'.
+  -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // You will need to create the sw.js file for service worker functionality.
+        // This registration will likely fail until sw.js exists and is valid.
+        navigator.serviceWorker.register('/sw.js') 
+          .then(registration => {
+            console.log('DR AI ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(error => {
+            console.log('DR AI ServiceWorker registration failed: ', error);
+          });
+      });
+    }
+  </script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
